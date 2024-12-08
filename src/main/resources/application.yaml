@@ -1,1 +1,10 @@
-spring.application.name=file-downloader
+spring:
+  application:
+    name: file-downloader
+
+aws:
+  access-key: "your-access-key"
+  secret-key: "your-secret-key"
+  s3:
+    endpoint: "http://localhost:9000"
+    bucket-name: "your-bucket-name"
