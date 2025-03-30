@@ -25,6 +25,8 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
+    implementation("org.postgresql:postgresql")
+
     implementation("commons-net:commons-net:3.11.1")
     implementation("io.minio:minio:8.3.5")
 

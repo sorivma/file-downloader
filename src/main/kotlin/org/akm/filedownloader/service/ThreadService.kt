@@ -42,7 +42,6 @@ class ThreadService(
         threadRepository.save(threadInfo)
     }
 
-    // Start thread manually (cron job or one-off execution)
     fun startThread(threadId: UUID) {
         val threadInfo = threadRepository.findById(threadId).orElseThrow {
             IllegalArgumentException("Thread not found")
@@ -66,7 +65,6 @@ class ThreadService(
         activeThreads[threadId] = future
     }
 
-    // Stop thread manually
     fun stopThread(threadId: UUID) {
         val threadInfo = threadRepository.findById(threadId).orElseThrow {
             IllegalArgumentException("Thread not found")
@@ -98,11 +96,14 @@ class ThreadService(
         }
     }
 
+    fun getThreads(): List<ThreadInfo> {
+        return threadRepository.findAll()
+    }
+
     @Scheduled(cron = "\${custom.cron.expression}")
     fun runScheduledThreads() {
         val threadsToRun = threadRepository.findAllByStatus("Scheduled")
         threadsToRun.forEach { threadInfo ->
-            // If the thread is scheduled, run it
             executorService.submit {
                 try {
                     runThread(threadInfo)

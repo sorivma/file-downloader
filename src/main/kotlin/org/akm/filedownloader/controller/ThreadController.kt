@@ -12,8 +12,6 @@ import java.util.*
 class ThreadController(
     private val threadService: ThreadService
 ) {
-
-    // Endpoint to create a new thread
     @PostMapping
     fun createThread(@RequestBody threadDto: ThreadDto): ResponseEntity<ThreadInfo> {
         try {
@@ -42,6 +40,15 @@ class ThreadController(
             ResponseEntity.ok(threadInfo)
         } catch (e: Exception) {
             ResponseEntity.status(404).body(null)
+        }
+    }
+
+    @GetMapping("/all")
+    fun getAllThreads(): ResponseEntity<List<ThreadInfo>> {
+        return try {
+            ResponseEntity.ok(threadService.getThreads())
+        } catch (e: Exception) {
+            ResponseEntity.status(500).body(null)
         }
     }
 
